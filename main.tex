@@ -1,0 +1,213 @@
+% style notes
+% -----------
+% - The multiply operation is represented by the \, thin space.
+
+\documentclass{article}
+\usepackage[letterpaper, textheight=9.0in, textwidth=5.2in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{csquotes}
+
+% typesetting issues
+\setstretch{1.08}
+\sloppy\sloppypar\raggedbottom\frenchspacing % trust in Hogg
+\newcommand{\lcdm}{$\Lambda$CDM}
+
+\title{\bfseries Notes on Cosmological Statistics}
+
+\date{May 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Preliminaries}
+The goal of these notes is to provide an intuitive and easy-to-read account of the basic cosmological statistics. 
+These notes are mostly based on a few sections of P.J.E. Peebles' book \textit{The Large Scale Structure of the Universe}, which is the definitive text on statistics of the large scale structure. 
+These notes also incorporate information from other sources, notably \textit{Cosmological Physics} by J.A. Peacock and \textit{Cosmology} by D. Baumann.
+Peebles' text, while extremely well-written and informative, is somewhat dated, and therefore neglects certain modern conventions.
+The more recent standard cosmology texts have thus been used as references.
+These recent texts, on the other hand, are written quite tersely, and are not as expansive as Peebles is.
+I also tend to emphasize clear probability theory definitions, so as to clarify mathematical maneuvers.
+I begin with a discussion of statistics in real space, and then I move on to Fourier space.
+I have attempted to be as clear, expansive, and thorough as possible for my own edification.
+
+I have kept to notations from Peebles, since the bulk of the information comes from his book. However, I frequently provide notations from the alternative texts. Peebles' notations are kept track of in table 1.
+\begin{table}[h]
+\centering
+\begin{tabular}{l p{10cm}}
+\toprule
+Notation & Definition \\
+\midrule
+$\mathbf{r}_j$ & Position of an object in 3-space.\\
+$\delta P$ & An infinitesimal probability or infinitesimal joint probability.\\
+$n$ & The mean number density of objects.\\
+$\delta V$ & An infinitesimal/differential volume cell.\\
+$n_1$ & The number of objects in infinitesimal volume $\delta V_1$.\\
+$N$ & The number of objects in a finite volume.\\
+$V$ & A finite volume.\\
+$\xi(\mathbf{r})$ & Two-point correlation function. \\
+$\rho(\mathbf{r})$ & Number density of objects at position $\mathbf{r}$. \\
+$\delta_D(\mathbf{r})$ & The Dirac Delta function.\\
+$\zeta(\mathbf{r},\mathbf{s})$ & Reduced three-point correlation function. \\
+\bottomrule
+\end{tabular}
+\caption{Notation used in \textit{The Large Scale Structure of the Universe} by P.J.E. Peebles.}
+\label{tab:notation}
+\end{table}
+
+\section{Two-point Function}
+Galaxies have positions $\mathbf{r}_j$. 
+The probability that an object is found in the infinitesimal volume element $\delta V$ is
+\[
+\delta P=n\,\delta V \tag{Peebles 31.1}
+\]
+where $n$ is the \textit{mean} number density of galaxies.
+
+Then, if we observe some finite volume $V$, we may write that the mean number of galaxies in $V$ (averaging over all bubbles with volume $V$ in the universe) is 
+\[
+\langle N\rangle=n\,V. \tag{Peebles 31.3}
+\]
+It is instructive to notice that dimensionally, $\delta P$ appears to have units of \enquote{number of galaxies.}
+In fact, $\delta P$ is a count average like $\langle N\rangle$, but for an infinitesimal volume $\delta V$. 
+We will denote the count in the infinitesimal volume $\delta V_1$ as $n_1$.
+Because the probability of finding more than one object in $\delta V_1$ is an infinitesimal of higher order in $\delta V_1$, we may regard $\delta P$ as the mean of a Bernoulli random variable (either 0 or 1 galaxies occupy $\delta V_1$):
+\[
+\langle n_1\rangle =1\cdot \delta P+0\cdot (1-\delta P)=\delta P.
+\]
+This is an infinitesimal probability, but as indicated, it does not integrate out to 1 over the volume, rather, it is a discrete probability corresponding to the infinitesimal cell.
+
+We are interested not only in the mean density but also in the \textit{distribution} of matter, that is, the large scale \textit{structure}. 
+Therefore, we ought to be interested in the galaxy occupation of multiple infinitesimal volume cells in a larger volume.
+
+As we have seen, each infinitesimal volume element has an associated Bernoulli random variable whose occupation probability is proportional to its volume. In the case that the occupations by galaxies of distinct infinitesimal volumes in some larger volume are independent events, a (uniform) \textit{Poisson distribution} is a good description of the distribution of counts of galaxies in the volume.
+They are \textit{not} independent events, but the independent case is a good baseline because it allows us to estimate statistical effects which are due to randomness as opposed to correlation.
+Randomness in this case is referred to as \enquote{Poisson noise} or \enquote{shot noise.}
+To measure this correlation, we use the two-point correlation function $\xi(r)$, which is defined as follows:
+\[
+\delta P=n^2\,\delta V_1\,\delta V_2\,[\,1+\xi(r_{12})\,] \tag{Peebles 31.4}
+\]
+where $\delta P$ is the joint probability that there is an object in both $\delta V_1$ and $\delta V_2$. 
+In the uniform Poisson case, the occupations of the two volume cells are uncorrelated, so we may simply multiply the probability $n\,\delta V_1$ by the probability $n\,\delta V_2$ to get the joint probability
+\[
+\delta P=n^2\,\delta V_1\,\delta V_2\, \tag{Peebles 31.5}.
+\]
+This elucidates the definition in Peebles 31.4, as the correlation function is the dimensionless scaling factor by which the joint probability exceeds the uniform Poisson expectation.
+
+Again, this $\delta P$ doesn't have units of probability, rather, it has units of \enquote{square of the number of galaxies.}
+In fact, $\delta P$ is now $\langle\,n_1\,n_2\,\rangle$, where $n_1$ and $n_2$ are the numbers of galaxies in infinitesimal volumes $\delta V_1$ and $\delta V_2$, respectively. 
+Again, the probabilities of more than one object appearing in $\delta V_1$ is an infinitesimal of higher order, so the only relevant cases are when $n_1=n_2=1$ and when one or both of $n_1$ and $n_2$ are 0. 
+Therefore, in expectation,
+\[
+\langle\,n_1\,n_2\,\rangle=\delta P.
+\]
+For reference, the definition in Peebles 31.4 is written in Peacock as
+\[
+d P=\rho_0^2\,[\,1+\xi(r)\,]\,dV_1\,dV_2\,\tag{Peacock 16.29}.
+\]
+
+\section{Density Field}
+At this point, we should introduce a new quantity: the number density field. 
+So far, we have been discussing a set of galaxies at positions $\mathbf{r}_j$. 
+Now, we will encode this distribution of objects as a density field $\rho$, defined as a sum of Dirac delta functions (denoted $\delta_D$):
+\[
+\rho(\mathbf{r})=\sum_{j=1}^{N}\delta_D(\mathbf{r}-\mathbf{r}_j).
+\]
+Integrating this density field over a volume gives us the number of galaxies in that volume. 
+Therefore, taking the expectation of this field, we get the total number of galaxies in the volume, divided by the volume, which is the mean density $n$:
+\[
+\langle\,\rho(\mathbf{r})\,\rangle=n.\tag{Peebles 33.1}
+\]
+Now, we can define the two-point correlation function as the dimensionless autocorrelation function of the \textit{field.}
+\[
+\xi(r)=\frac{\langle\,[\,\rho(\mathbf{x}+\mathbf{r})-\langle\rho\rangle\,]\,[\,\rho(\mathbf{x})-\langle\rho\rangle\,]\,\rangle}{\langle\rho\rangle^2}\tag{Peebles 33.2}
+\]
+This can be simplified to 
+\[
+\langle\,\rho(\mathbf{x}+\mathbf{r})\,\rho(\mathbf{x})\,\rangle=n^2\,[\,1+\xi(r)\,].\tag{Peebles 33.3}
+\]
+This looks an awful lot like Peebles 31.4, and that's because they are really the same equation. 
+Peebles 31.4 can we rewritten as
+\[
+\left\langle\,\frac{n_1}{\delta V_1}\,\frac{n_2}{\delta V_2}\,\right\rangle=n^2\,[\,1+\xi(r_{12})\,],
+\]
+where $n_1/\delta V_1$ is the density at some position $\mathbf{x}$ and $n_2/\delta V_2$ is the density at $\mathbf{x}+\mathbf{r}$.
+
+We may write out the expectation of the product, keeping track of the diagonal and cross terms
+\begin{align*}
+    \langle\,\rho(\mathbf{x}+\mathbf{r})\,\rho(\mathbf{x})\,\rangle&=\langle\,\sum_{j_1=1}^{N}\,\sum_{j_2=1}^{N}\,\delta_D(\mathbf{x}+\mathbf{r}-\mathbf{r}_{j_1})\,\delta_D(\mathbf{x}-\mathbf{r}_{j_2})\,\rangle\\
+    &=\langle\,\sum_{j_1\neq j_2}^{N}\,\delta_D(\mathbf{x}+\mathbf{r}-\mathbf{r}_{j_1})\,\delta_D(\mathbf{x}-\mathbf{r}_{j_2})+\sum_{j_1=1}^{N}\,\delta_D(\mathbf{x}+\mathbf{r}-\mathbf{r}_{j_1})\,\delta_D(\mathbf{x}-\mathbf{r}_{j_1})\,\rangle\\
+    &=\langle\,\sum_{j_1\neq j_2}^{N}\,\delta_D(\mathbf{r}-\mathbf{r}_{j_1}+\mathbf{r}_{j_2})\,\delta_D(\mathbf{x}-\mathbf{r}_{j_2})\,\rangle+\langle\,\sum_{j_1=1}^{N}\,\delta_D(\mathbf{r})\,\delta_D(\mathbf{x}-\mathbf{r}_{j_1})\,\rangle\\
+    &=\frac{1}{V}\,\sum_{j_1\neq j_2}^{N}\,\delta_D(\mathbf{r}-\mathbf{r}_{j_1}+\mathbf{r}_{j_2})+n\,\delta_D(\mathbf{r}).
+\end{align*}
+This expectation essentially counts ordered pairs of objects at separation $\mathbf{r}$. Precisely, it is the \textit{density} of pairs at separation $\mathbf{r}$ in the universe: if we integrate this expectation over some interval of scales $\mathbf{r}$, we get the \textit{number} of pairs in that separation range, per volume. The $n\delta_D(\mathbf{r})$ term is called \enquote{shot noise}, and it emerges from the fact that if we check the separation $\mathbf{r}=0$, we just get that each discrete point correlates with itself. 
+
+\section{Density Perturbation Field}
+The current convention in cosmology is to use a dimensionless \enquote{density perturbation field} as opposed to a density field. 
+This is also known as a \enquote{density contrast} or a \enquote{matter overdensity field.}
+Peacock defines this as
+\[
+\delta(\mathbf{x})=\frac{\rho(\mathbf{x})-\langle\rho\rangle}{\langle\rho\rangle}.\tag{Peacock 16.1}
+\]
+Peacock also refers to the two-point correlation function as simply the \enquote{correlation function,} which he defines as
+\[
+\xi(\mathbf{r})=\langle\,\delta(\mathbf{x})\,\delta(\mathbf{x}+\mathbf{r})\,\rangle.\tag{Peacock 16.7}
+\]
+This is in fact the same definition as Peebles, because 
+\begin{align*}
+\langle\,\delta(\mathbf{x})\,\delta(\mathbf{x}+\mathbf{r})\,\rangle&=\left\langle\frac{\rho(\mathbf{x})-\langle\rho\rangle}{\langle\rho\rangle}\,\frac{\rho(\mathbf{x}+\mathbf{r})-\langle\rho\rangle}{\langle\rho\rangle}\,\right\rangle\\
+&=\frac{1}{n^2}\,\langle\,\rho(\mathbf{x}+\mathbf{r})\,\rho(\mathbf{x})\,\rangle-1.
+\end{align*}
+
+\section{Three-point and n-point functions}
+We may also be interested in the probability $\delta P$ of three randomly chosen infinitesimal cells all containing an object. This motivates the three-point correlation function:
+\[
+\delta P=n^3\,\delta V_1\,\delta V_2\,\delta V_3\,[\,1+\xi(r_{a})\,+\xi(r_{b})\,+\xi(r_{c})\,+\zeta(r_{a},r_b,r_{c})\,] \tag{Peebles 34.1}
+\]
+where $\mathbf{r}_{a}$, $\mathbf{r}_{b}$, and $\mathbf{r}_{c}$ are the sides of the triangle between the three infinitesimal volume elements. 
+It may be convenient to think of $\delta P$ here as $\langle\,n_1\,n_2\,n_3\,\rangle$.
+Peebles refers to the entire quantity inside the square brackets as the \enquote{full three-point correlation function,} and $\zeta$ as the \enquote{reduced part.}
+As before, we can write this in terms of the density field as
+\[
+\zeta(r,s,|\,\mathbf{r}-\mathbf{s}\,|\,)=\frac{\langle\,[\,\rho(\mathbf{x}+\mathbf{r})-\langle\rho\rangle\,]\,[\,\rho(\mathbf{x}+\mathbf{s})-\langle\rho\rangle\,]\,[\,\rho(\mathbf{x})-\langle\rho\rangle\,]\,\rangle}{\langle\rho\rangle^3}\tag{Peebles 34.5}
+\]
+where $\mathbf{r}$ and $\mathbf{s}$ are the two vectors that form the triangle.
+Expanding this, rearranging, and plugging in Peebles 33.3, we can write
+\[
+\langle\,[\,\rho(\mathbf{x}+\mathbf{r})\,\rho(\mathbf{x}+\mathbf{s})\,\rho(\mathbf{x})\,\rangle=n^3\,[\,1+\xi(r)+\xi(s)+\xi(\,|\,\mathbf{r}-\mathbf{s}\,|\,)+\zeta(r,s,|\,\mathbf{r}-\mathbf{s}\,|\,)\,]. \tag{Peebles 34.6}
+\]
+As in the two-point function, integrating the three-point function over its part of its domain effectively counts the density of triples of objects whose triangular orientation is included in the domain.
+n-point functions are discussed Peacock. The probability of an n-tuple of galaxies being present in n infinitesimal volume elements is given as
+\[
+d P=\rho_0^n\,[\,1+\xi^{(n)}\,]\,dV_1\cdots dV_n,\tag{Peacock 16.31}
+\]
+where $\xi^{(n)}$ is considered the full n-point function.
+Here, the convention of using the density contrast becomes particularly useful. Peacock writes
+\[
+1+\xi^{(n)}=\left\langle\prod_i(1+\delta_i)\right\rangle.\tag{Peacock 16.32}
+\]
+Here, the convention of using the density contrast becomes particularly useful, because the reduced 3-point function is $\zeta=\langle\,\delta_1\,\delta_2\,\delta_3\,\rangle$
+and the reduced n-point function is simply $\langle\,\prod\delta_i\,\rangle$.
+
+\section{Moments of Count}
+Now, imagine we have $N$ objects in our finite volume $V$. Again, $V$ is divided into infinitesimal elements with $\delta V_1$ having $n_1$ objects in it. Recall that the probability that $n_1=1$ is $n\,\delta V_1$ and the probability that $n_1>1$ is an infinitesimal of higher order. Therefore we can write
+\[
+n\,\delta V_1=\langle n_1\rangle=\langle {n_1}^2\rangle=\langle {n_1}^3\rangle.\tag{Peebles 36.1}
+\]
+The count of objects in a cell $V$ is
+\[
+N=\sum n_1,\tag{Peebles 36.3}
+\]
+and, as we've established, the mean count (first moment of count) is
+\[
+\langle N\rangle=\sum \langle n_1\rangle=\int_V n\,dV=n\,V.\tag{Peebles 36.4}
+\]
+Perhaps frustratingly, Peebles doesn't use a letter to index the infinitesimal elements here, he simply uses natural numbers to specify terms.
+Anyway, we can also compute the second moment.
+
+
+
+
+\end{document}
