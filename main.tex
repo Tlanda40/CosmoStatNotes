@@ -52,6 +52,7 @@ $\xi(\mathbf{r})$ & Two-point correlation function. \\
 $\rho(\mathbf{r})$ & Number density of objects at position $\mathbf{r}$. \\
 $\delta_D(\mathbf{r})$ & The Dirac Delta function.\\
 $\zeta(\mathbf{r},\mathbf{s})$ & Reduced three-point correlation function. \\
+$\mu_2$ & Variance of $N$.\\
 \bottomrule
 \end{tabular}
 \caption{Notation used in \textit{The Large Scale Structure of the Universe} by P.J.E. Peebles.}
@@ -84,7 +85,7 @@ Therefore, we ought to be interested in the galaxy occupation of multiple infini
 
 As we have seen, each infinitesimal volume element has an associated Bernoulli random variable whose occupation probability is proportional to its volume. In the case that the occupations by galaxies of distinct infinitesimal volumes in some larger volume are independent events, a (uniform) \textit{Poisson distribution} is a good description of the distribution of counts of galaxies in the volume.
 They are \textit{not} independent events, but the independent case is a good baseline because it allows us to estimate statistical effects which are due to randomness as opposed to correlation.
-Randomness in this case is referred to as \enquote{Poisson noise} or \enquote{shot noise.}
+Randomness in this case is referred to as \enquote{Poisson noise.}
 To measure this correlation, we use the two-point correlation function $\xi(r)$, which is defined as follows:
 \[
 \delta P=n^2\,\delta V_1\,\delta V_2\,[\,1+\xi(r_{12})\,] \tag{Peebles 31.4}
@@ -194,7 +195,7 @@ and the reduced n-point function is simply $\langle\,\prod\delta_i\,\rangle$.
 \section{Moments of Count}
 Now, imagine we have $N$ objects in our finite volume $V$. Again, $V$ is divided into infinitesimal elements with $\delta V_1$ having $n_1$ objects in it. Recall that the probability that $n_1=1$ is $n\,\delta V_1$ and the probability that $n_1>1$ is an infinitesimal of higher order. Therefore we can write
 \[
-n\,\delta V_1=\langle n_1\rangle=\langle {n_1}^2\rangle=\langle {n_1}^3\rangle.\tag{Peebles 36.1}
+n\,\delta V_1=\langle n_1\rangle=\langle n_1^2\rangle=\langle n_1^3\rangle=\cdots.\tag{Peebles 36.1}
 \]
 The count of objects in a cell $V$ is
 \[
@@ -206,8 +207,20 @@ and, as we've established, the mean count (first moment of count) is
 \]
 Perhaps frustratingly, Peebles doesn't use a letter to index the infinitesimal elements here, he simply uses natural numbers to specify terms.
 Anyway, we can also compute the second moment.
-
-
-
+After writing out diagonal terms and cross terms as
+\[
+\langle N^2\rangle=\sum\langle n_1^2\rangle+\sum\langle \,n_1\,n_2\,\rangle,\tag{Peebles 36.5}
+\]
+we can expand each term as
+\[
+\langle N^2\rangle=n\,V+(n\,V)^2+n^2\,\int_V dV_1\,dV_2\,\xi_{12}.\tag{Peebles 36.6}
+\]
+It's important to understand what we're integrating: $\xi_{12}$ is a function of length, so when we integrate it above, we're treating it as a function of two points in space given by $dV_1$ and $dV_2$, and taking the length between them to evaluate $\xi_{12}$.
+Now that we have the second moment of $N$, we can compute the second central moment, or \textit{variance,} denoted $\mu_2$.
+\[
+\mu_2=\langle\,(N-\langle N\rangle)^2\rangle=n\,V+\int_V dV_1\,dV_2\,\xi_{12}
+\]
+In the case that $\xi_{12}=0$ everywhere, we recover that the mean is equal to the variance (first moment of count is equal to $\mu_2$), which is characteristic of a Poisson distributed random variable.
+The third moment of count is defined very similarly.
 
 \end{document}
